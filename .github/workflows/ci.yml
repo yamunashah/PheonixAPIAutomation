@@ -16,11 +16,17 @@ on:
   workflow_dispatch:
     inputs:
       env:
-       description: "Environment Options"
+       description: "Choose Environment[Default:qa]"
        type: choice
        required: true
        options: [dev,qa,uat]
        default: "qa"
+      suiteXMlFile:
+       description: "Choose suiteXML File[Default:testng.xml]"
+       type: choice
+       required: true
+       options: [testng.xml,smoke.xml]
+       default: testng.xml
       
 
 jobs:
@@ -38,7 +44,7 @@ jobs:
         cache: maven
         
     - name: Test with Maven
-      run:  mvn clean -DsuiteXMlFile=testng.xml -Denv=${{ github.event.inputs.env }} test
+      run:  mvn clean -DsuiteXMlFile=${{ github.event.inputs.suiteXMlFile }} -Denv=${{ github.event.inputs.env }} test
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4
