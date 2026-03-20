@@ -19,14 +19,14 @@ on:
        description: "Choose Environment[Default:qa]"
        type: choice
        required: true
-       options: [dev,qa,uat]
+       options: ["dev","qa","uat"]
        default: "qa"
       suiteXMlFile:
        description: "Choose suiteXML File[Default:testng.xml]"
        type: choice
        required: true
-       options: [testng.xml,smoke.xml]
-       default: testng.xml
+       options: ["testng.xml","smoke.xml"]
+       default: "testng.xml"
       
 
 jobs:
