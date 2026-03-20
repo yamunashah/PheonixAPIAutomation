@@ -30,3 +30,11 @@ jobs:
         
     - name: Test with Maven
       run:  mvn clean -DsuiteXMlFile=testng.xml -Denv=qa test
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.2.2
+      with:
+        name: Upload Artifact
+        path: target/surefire-reports/API Automation/*.html
+        retention-days: 10
+    
