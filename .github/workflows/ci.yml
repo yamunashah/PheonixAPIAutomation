@@ -13,6 +13,15 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  workflow_dispatch:
+    inputs:
+      env:
+       description: "Environment Options"
+       type: choice
+       required: true
+       options: [dev,qa,uat]
+       default: "qa"
+      
 
 jobs:
   tests:
@@ -29,7 +38,7 @@ jobs:
         cache: maven
         
     - name: Test with Maven
-      run:  mvn clean -DsuiteXMlFile=testng.xml -Denv=qa test
+      run:  mvn clean -DsuiteXMlFile=testng.xml -Denv=${{ github.event.inputs.env }} test
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4
