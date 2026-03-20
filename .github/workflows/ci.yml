@@ -44,7 +44,7 @@ jobs:
         cache: maven
         
     - name: Test with Maven
-      run:  mvn clean -DsuiteXMlFile = ${{ github.event.inputs.suiteXMlFile }} -Denv = ${{ github.event.inputs.env }} test
+      run:  mvn clean -DsuiteXMlFile=${{ github.event.inputs.suiteXMlFile }} -Denv=${{ github.event.inputs.env }} test
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4
