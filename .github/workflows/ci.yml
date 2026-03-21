@@ -23,7 +23,7 @@ on:
        required: true
        options: [dev,qa,uat]
        default: qa
-      suiteXMlFile:
+      suiteXmlFile:
        description: "Choose suiteXML File[Default:testng.xml]"
        type: choice
        required: true
@@ -42,10 +42,10 @@ jobs:
         cache: maven
         
     - name: Test with Maven
-      run:  mvn clean test -DsuiteXMlFile=${{ inputs.suiteXMlFile }} -Denv=${{ inputs.env }}
+      run:  mvn clean test -DsuiteXmlFile="${{ github.event.inputs.suiteXmlFile }}" -Denv="${{ github.event.inputs.env }}"
 
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.6.2
       with:
         name: Upload Artifact
         path: target/surefire-reports/API Automation/*.html
