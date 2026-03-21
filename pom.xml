@@ -56,7 +56,7 @@
             <configuration>
                 <suiteXmlFiles>
                     <!-- Specify the path to your testng.xml file -->
-                    <suiteXmlFile>${suiteXMlFile}</suiteXmlFile>
+                    <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                 </suiteXmlFiles>
             </configuration>
         </plugin>
