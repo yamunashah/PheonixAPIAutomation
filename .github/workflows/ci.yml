@@ -18,17 +18,17 @@ on:
   workflow_dispatch:
     inputs:
       env:
-         description: "Choose Environment[Default:qa]"
-         type: choice
-         required: true
-         options: [dev,qa,uat]
-         default: qa
+        description: "Choose Environment[Default:qa]"
+        type: choice
+        required: true
+        options: [dev,qa,uat]
+        default: qa
       suiteXMlFile:
-         description: "Choose suiteXML File[Default:testng.xml]"
-         type: choice
-         required: true
-         options: [testng.xml,smoke.xml]
-         default: testng.xml
+        description: "Choose suiteXML File[Default:testng.xml]"
+        type: choice
+        required: true
+        options: [testng.xml,smoke.xml]
+        default: testng.xml
 jobs:
   tests:
     runs-on: ubuntu-latest
