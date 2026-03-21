@@ -13,6 +13,8 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  schedule: #set the schedule midnight 00:00 UTC
+    - cron: "30 18 * * *"
   workflow_dispatch:
     inputs:
       env:
@@ -20,20 +22,16 @@ on:
          type: choice
          required: true
          options: [dev,qa,uat]
-         default: "qa"
+         default: qa
       suiteXMlFile:
          description: "Choose suiteXML File[Default:testng.xml]"
          type: choice
          required: true
          options: [testng.xml,smoke.xml]
          default: "testng.xml"
-      
-
 jobs:
   tests:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -44,7 +42,7 @@ jobs:
         cache: maven
         
     - name: Test with Maven
-      run:  mvn clean -DsuiteXMlFile=${{ github.event.inputs.suiteXMlFile }} -Denv=${{ github.event.inputs.env }} test
+      run:  mvn clean test -DsuiteXMlFile="${{ github.event.inputs.suiteXMlFile }}" -Denv="${{ github.event.inputs.env }}"
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4
