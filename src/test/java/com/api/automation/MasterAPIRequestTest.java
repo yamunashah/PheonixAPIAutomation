@@ -9,7 +9,8 @@ import org.testng.annotations.Test;
 
 import com.api.constants.Role;
 import com.api.utils.AuthTokenProvider;
-import com.api.utils.Utils;
+import com.api.utils.ConfigManager;
+import com.api.utils.specUtil;
 
 import io.restassured.module.jsv.JsonSchemaValidator;
 
@@ -20,25 +21,14 @@ public class MasterAPIRequestTest {
 	public void MasterAPITest()
 	{
 		given()
-			.baseUri(Utils.getProperty("BASE_URL"))
-			.and()
-			.header("Authorization",AuthTokenProvider.getToken(Role.FD))
-			.and()
-			.contentType("")
-			.log().all()
+		.spec(specUtil.requestBuilderEmptyContentType(Role.FD))
 		.when()
 			.post("/master")
 		.then()
-			.log().all()
-			.statusCode(200)
-			.and()
-			.time(lessThan(1000L))
-			.and()
+			.spec(specUtil.responseBuilder_Ok())
 			.body("$",hasKey("message"))
 			.and()
 			.body("$",hasKey("data"))
-			.and()
-			.body("message",equalTo("Success"))
 			.and()
 			.body("data",notNullValue())
 			.and()
@@ -58,14 +48,13 @@ public class MasterAPIRequestTest {
 	public void invalidAuthToken()
 	{
 		given()
-			.baseUri(Utils.getProperty("BASE_URL"))
+			.baseUri(ConfigManager.getProperty("BASE_URL"))
 			.and()
 			.contentType("")
 			.log().all()
 		.when()
 			.post("/master")
 		.then()
-			.log().all()
-			.statusCode(401);
+			.spec(specUtil.responseBuilder_401());
 	}
 }

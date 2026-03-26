@@ -40,7 +40,7 @@ public class AuthTokenProvider {
 		
 		
 		String token = given()
-			.baseUri(Utils.getProperty("BASE_URL"))
+			.baseUri(ConfigManager.getProperty("BASE_URL"))
 			.and()
 			.contentType(ContentType.JSON)
 			.body(u1)

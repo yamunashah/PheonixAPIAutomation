@@ -1,15 +1,13 @@
 package com.api.automation;
 
-import static io.restassured.RestAssured.*;
-
+import static com.api.constants.Role.FD;
+import static com.api.utils.specUtil.*;
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
+
 import org.testng.annotations.Test;
 
 import io.restassured.module.jsv.JsonSchemaValidator;
-
-import static com.api.constants.Role.*;
-import static com.api.utils.AuthTokenProvider.*;
-import static com.api.utils.Utils.*;
 
 public class CountAPIRequestTest {
 
@@ -17,24 +15,11 @@ public class CountAPIRequestTest {
 	public void countAPITest()
 	{
 		given()
-			.baseUri(getProperty("BASE_URL"))
-			.and()
-			.header("Authorization", getToken(FD))
-			.and()
-			.log().uri()
-			.and()
-			.log().method()
-			.and()
-			.log().body()
+			.spec(requestBuilder(FD))
 		.when()
 			.get("dashboard/count")
 		.then()
-			.log().all()
-			.statusCode(200)
-			.and()
-			.time(lessThan(2000L))
-			.and()
-			.body("message", equalTo("Success"))
+			.spec(responseBuilder_Ok())
 			.and()
 			.body("data", notNullValue())
 			.and()
@@ -52,13 +37,10 @@ public class CountAPIRequestTest {
 	public void invalidAuthTest()
 	{
 		given()
-			.baseUri(getProperty("BASE_URL"))
-			.and()
-			.header("Authorization", "")
+			.spec(requestBuilderEmptyHeader())
 		.when()
 			.get("dashboard/count")
 		.then()
-			.log().all()
-			.statusCode(401);
+			.spec(responseBuilder_401());
 	}
 }

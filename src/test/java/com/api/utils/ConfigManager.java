@@ -5,14 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class Utils {
+public class ConfigManager {
 	
 	private static Properties prop =  new Properties();
 	private static String filePath = "constants/config.properties";
 	private static String env;
 	//private static FileReader configFileReader;
 	
-	private Utils()
+	private ConfigManager()
 	{
 		
 	}

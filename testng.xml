@@ -7,6 +7,7 @@
       <class name="com.api.automation.UserDetailsAPITest"/>
       <class name="com.api.automation.CountAPIRequestTest"/>
       <class name="com.api.automation.MasterAPIRequestTest"/>
+      <class name="com.api.automation.CreateJobAPITest"/>
     </classes>
   </test>
 </suite>
